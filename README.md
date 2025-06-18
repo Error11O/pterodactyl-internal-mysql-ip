@@ -11,7 +11,7 @@ It contains automation and patches for both the **node (Wings)** and **panel** s
 
 | Folder         | Description                                                                 |
 |----------------|-----------------------------------------------------------------------------|
-| `panel/`       | Contains scripts and patches for the Pterodactyl **web panel**             |
+| `panel-patch/`       | Contains scripts and patches for the Pterodactyl **web panel**             |
 | `node-patch/`  | Contains the **network patch** and Docker config setup for Wings/containers |
 
 ---
@@ -30,7 +30,7 @@ This project ensures that:
 
 ## 🛠️ How to Use
 
-1. 🔧 Go to the `panel/` folder and follow the instructions in its `README.md`
+1. 🔧 Go to the `panel-ptach/` folder and follow the instructions in its `README.md`
 2. ⚙️ Then go to the `node-patch/` folder and apply the network configuration
 3. 🧪 Restart the Pterodactyl services and test database creation and container connectivity
 
