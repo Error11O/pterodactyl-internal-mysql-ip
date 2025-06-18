@@ -31,7 +31,7 @@ This project ensures that:
 ## 🛠️ How to Use
 
 1. 🔧 Go to the `panel-ptach/` folder and follow the instructions in its `README.md`
-2. ⚙️ Then go to the `node-patch/` folder and apply the network configuration
+2. ⚙️ Then go to the `node-patch/` folder and follow the instructions in its `README.md`
 3. 🧪 Restart the Pterodactyl services and test database creation and container connectivity
 
 ---
