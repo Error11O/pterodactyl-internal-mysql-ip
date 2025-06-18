@@ -1,64 +1,39 @@
+# Node Patch: Internal MySQL Network Setup for Pterodactyl Wings
 
-# 🔧 setup_ptero_mysql_network_custom.sh
+This script configures the firewall and networking on a Pterodactyl **node** (Wings server) so that game server containers can communicate with the MySQL server running on the host using an internal Docker IP address.
 
-This script configures the network setup for a Pterodactyl panel to allow Docker-based game server containers to connect to a MySQL database on the host machine via an **internal IP** (e.g., `172.18.0.1`).
+## What it does
 
----
+- Detects the internal gateway IP of the Docker network used by Pterodactyl (e.g. `pterodactyl_nw`)
+- Applies `iptables` NAT rules to allow Docker containers to access MySQL via the gateway
+- Adds a UFW rule to allow traffic from the Docker subnet to port `3306`
+- Saves these rules using `netfilter-persistent`
 
-## 📋 What This Script Does
+## Usage
 
-1. 🔍 Detects the Docker network (e.g., `pterodactyl_nw`)
-2. 🛠 Adds or updates the internal IP alias (e.g., `172.18.0.1`) for MySQL in the database
-3. 🐘 Updates the `database_hosts` table used by Pterodactyl
-4. 🔁 Clears Laravel caches (`php artisan config:clear`, etc.)
-5. 🧪 Optionally tests internal MySQL connectivity
-
----
-
-## 🛠️ Usage
-
-### 🔽 1. Download the Script
+1. Clone this repository on your node:
 
 ```bash
-wget https://your-domain.com/setup_ptero_mysql_network_custom.sh
+git clone https://github.com/nycon/pterodactyl-internal-mysql-ip.git
+cd pterodactyl-internal-mysql-ip/node-patch
+```
+
+2. Make the script executable and run it:
+
+```bash
 chmod +x setup_ptero_mysql_network_custom.sh
-```
-
-### ⚙️ 2. Configure Your Settings
-
-Edit the following variables at the top of the script:
-
-```bash
-# ==== Configuration ====
-INTERNAL_IP="172.18.0.1"       # Internal Docker bridge IP
-DB_ID=1                        # ID from the 'database_hosts' table
-DB_NAME="panel"                # Name of your Pterodactyl panel database
-DB_USER="root"                 # MySQL user
-DB_PASS="your-password"        # MySQL password
-```
-
-### ▶️ 3. Run the Script
-
-```bash
 sudo ./setup_ptero_mysql_network_custom.sh
 ```
 
----
+> 🛡 Requires root privileges — use `sudo`.
 
-## ✅ Result
+## Notes
 
-The Pterodactyl panel will now display the **internal IP** (e.g., `172.18.0.1:3306`) as the **endpoint** when creating new databases for servers. This allows containers to connect directly without using external IPs or NAT.
+- This only needs to be run **once per node**, or if the Docker network changes.
+- Ensure `pterodactyl_nw` is the correct Docker network name. Modify the script if your setup uses a different name.
 
----
+## Result
 
-## ❗ Important Notes
+Once configured, your game servers will be able to connect to MySQL using the **internal address** (e.g. `172.18.0.1:3306`) instead of the external IP.
 
-- This script **modifies** the Pterodactyl database directly.
-- Always make a **backup** before running.
-- Make sure the Docker network exists and matches the IP you're configuring.
-
----
-
-## 📜 License
-
-MIT – Use at your own risk.
+This makes the connection faster, more secure, and isolated within the Docker network.
