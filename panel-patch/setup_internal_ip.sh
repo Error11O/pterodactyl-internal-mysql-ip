@@ -41,10 +41,7 @@ SQL
 
 echo "♻️ Clearing Laravel cache..."
 cd /var/www/pterodactyl
-php artisan config:clear
-php artisan cache:clear
-php artisan view:clear
-php artisan route:clear
+php artisan optimize:clear
 
 echo "📦 Installing dependencies and rebuilding frontend..."
 yarn install --frozen-lockfile
