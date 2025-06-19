@@ -21,10 +21,10 @@ command -v mysql >/dev/null || { echo >&2 "MySQL is not installed."; exit 1; }
 command -v php >/dev/null || { echo >&2 "PHP is not installed."; exit 1; }
 command -v yarn >/dev/null || { echo >&2 "Yarn is not installed."; exit 1; }
 
-PATCH_DIR="./panel-patch"
+PATCH_DIR="./"
 
 if [ ! -d "$PATCH_DIR" ]; then
-  echo "❌ Patch directory '$PATCH_DIR' not found. Please make sure it's in the same folder as this script."
+  echo "Patch directory '$PATCH_DIR' not found. Please make sure it's in the same folder as this script."
   exit 1
 fi
 
@@ -39,12 +39,12 @@ ALTER TABLE database_hosts ADD COLUMN IF NOT EXISTS internal_address VARCHAR(191
 UPDATE database_hosts SET internal_address = '$INTERNAL_IP' WHERE id = $DB_HOST_ID;
 SQL
 
-echo "♻️ Clearing Laravel cache..."
+echo "Clearing Laravel cache..."
 cd /var/www/pterodactyl
 php artisan optimize:clear
 
-echo "📦 Installing dependencies and rebuilding frontend..."
+echo "Installing dependencies and rebuilding frontend..."
 yarn install --frozen-lockfile
 yarn run build:production
 
-echo "✅ Done! Refresh your browser (CTRL+F5) to see the changes."
+echo "Done! Refresh your browser (CTRL+F5) to see the changes."
