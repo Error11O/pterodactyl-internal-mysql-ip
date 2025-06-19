@@ -8,7 +8,7 @@ DOCKER_NETWORK_NAME="pterodactyl_nw"
 BRIDGE_IP=$(docker network inspect "$DOCKER_NETWORK_NAME" -f '{{range .IPAM.Config}}{{.Gateway}}{{end}}')
 
 if [[ -z "$BRIDGE_IP" ]]; then
-  echo "❌ Could not determine the gateway IP for Docker network '$DOCKER_NETWORK_NAME'."
+  echo "Could not determine the gateway IP for Docker network '$DOCKER_NETWORK_NAME'."
   echo "Make sure the network exists and Docker is running."
   exit 1
 fi
@@ -37,9 +37,9 @@ else
 fi
 
 echo ""
-echo "✅ Network setup complete!"
+echo "Network setup complete!"
 echo "----------------------------------------"
-echo "📌 Internal database address to use in the Panel:"
+echo "   Internal database address to use in the Panel:"
 echo "   ➤ Internal Address: $BRIDGE_IP"
 echo ""
 echo "============== Done =============="
