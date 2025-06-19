@@ -1,6 +1,8 @@
 # Pterodactyl Internal MySQL IP Patch
 
-**Important:** Before running this patch, make sure that a MySQL host is already added in the Pterodactyl panel under **Admin > Databases > Database Hosts**.  
+## ❗ Important
+
+**Before running this patch, make sure that a MySQL host is already added in the Pterodactyl panel under `Admin > Databases > Database Hosts`.**  
 If no host exists, the internal IP field (`internal_address`) will not be set.
 
 This repository provides a patch and setup script to display the **internal MySQL IP address** (e.g., `172.18.0.1`) in the Pterodactyl panel — ideal for game servers running in Docker containers that need to connect directly to the MySQL service on the host.
