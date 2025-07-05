@@ -61,6 +61,8 @@ php artisan optimize:clear
 
 echo "Installing dependencies and rebuilding frontend..."
 yarn install --frozen-lockfile
+
+export NODE_OPTIONS=--openssl-legacy-provider
 yarn run build:production
 
 echo "Done! Refresh your browser (CTRL+F5) to see the changes."
